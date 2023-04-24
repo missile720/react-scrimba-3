@@ -1,0 +1,30 @@
+.navBar{
+    display: flex;
+    height: 65px;
+    align-items: center;
+    background: linear-gradient(90deg, #672280 1.18%, #A626D3 100%);
+    color: white;
+}
+
+.logo{
+    width: 31.31px;
+    height: 26.22px;
+    padding-left: 20px;
+}
+
+.navTitle{
+    padding-left: 7px;
+    font-family: 'Karla', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20.7482px;
+    margin-right: auto;
+}
+
+.navText{
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    padding-right: 37px;
+}
