@@ -1,6 +1,6 @@
 import React from 'react'
 import './Meme.css'
-import memesData from "../memesData"
+//import memesData from "../memesData"
 
 function Meme() {
   const [meme, setMeme] = React.useState({
@@ -9,10 +9,16 @@ function Meme() {
     randomImage: "http://i.imgflip.com/1bij.jpg"
   });
 
-  const [allMemeImages, setAllMemeImages] = React.useState(memesData);
+  const [allMeme, setAllMeme] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('https://api.imgflip.com/get_memes')
+      .then(response => response.json())
+      .then(data => setAllMeme(data.data.memes))
+  }, []);
 
   function getMemeImage(){
-    let memesArray = allMemeImages.data.memes;
+    let memesArray = allMeme;
     let random = Math.floor(Math.random() * memesArray.length);
 
     setMeme(prevMeme => ({
@@ -21,17 +27,29 @@ function Meme() {
     }));
   }
 
+  function changeData(event){
+    const {name, value} = event.target;
+
+    setMeme(prevMeme => ({
+      ...prevMeme,
+      [name] : value
+    }));
+
+  }
+
   return (
     <div className='memeForm'>
         <div className='inputField'>
-            <input type="text" name="" placeholder='Top Text' id="topInput" />
-            <input type="text" name="" placeholder='Bottom Text' id="bottomInput" />
+            <input type="text" name="topText" placeholder='Top Text' id="topInput" onChange={changeData}/>
+            <input type="text" name="bottomText" placeholder='Bottom Text' id="bottomInput" onChange={changeData}/>
         </div>
         <div className='buttonField'>
             <button className='submit' onClick={getMemeImage}>Get a new meme image</button>
         </div>
         <div className='imageField'>
             <img className='memeImage' src={meme.randomImage} alt="" />
+            <h2 className="meme--text top">{meme.topText}</h2>
+            <h2 className="meme--text bottom">{meme.bottomText}</h2>
         </div>
     </div>
   )
